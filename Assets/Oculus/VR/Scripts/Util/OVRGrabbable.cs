@@ -168,21 +168,19 @@ public class OVRGrabbable : MonoBehaviour
         }
     }
 
-    //偵測物體加速度使得不要讓物件飛出去
+    //偵測物體加速度，讓物件不要飛出去
     private void FixedUpdate()
     {
-        if (m_grabbedBy == null)
+        //得到加速度
+        Vector3 acceleration = (rb.velocity - lastVelocity) / Time.fixedDeltaTime;
+        lastVelocity = rb.velocity;
+        if (acceleration.magnitude > 10f) //如果加速度過大
         {
-            //得到加速度
-            Vector3 acceleration = (rb.velocity - lastVelocity) / Time.fixedDeltaTime;
-            lastVelocity = rb.velocity;
-            if (acceleration.magnitude > 10f) //如果加速度過大
-            {
-                rb.velocity = new Vector3(0, 0, 0);
-                transform.position = lastPosition;//位置拉回
-            }
-            lastPosition = transform.position;
+            rb.velocity = new Vector3(0, 0, 0);
+            transform.position = lastPosition;//位置拉回
         }
+        lastPosition = transform.position;
+        
         //Debug.Log(acceleration);
     }
 
