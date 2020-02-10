@@ -176,12 +176,16 @@ public class OVRGrabbable : MonoBehaviour
         lastVelocity = rb.velocity;
         if (acceleration.magnitude > 10f) //如果加速度過大
         {
-            rb.velocity = new Vector3(0, 0, 0);
+            rb.velocity = new Vector3(0,0,0);
             transform.position = lastPosition;//位置拉回
         }
-        lastPosition = transform.position;
         
-        //Debug.Log(acceleration);
+        //Debug.Log(rb.velocity.magnitude);
+        //float accel = Vector3.Distance(transform.position, lastPosition)/Time.fixedDeltaTime;
+        lastPosition = transform.position;
+        //Debug.Log(accel);
+
+
     }
 
 
